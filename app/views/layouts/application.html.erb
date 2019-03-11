@@ -16,8 +16,13 @@
           <h1 class="has-text-centered title is-1 has-text-white">Quetzaat</h1>
         <% end %>
       </div>
+      <div class="navbar-end">
+        <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+      </div>
     </nav>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
     <footer class="footer">
       <div class="container">
         <p class="has-text-centered">Todos los derechos reservados &copycopyright Quetzaan.</p>
