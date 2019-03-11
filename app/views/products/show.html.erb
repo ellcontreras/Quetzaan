@@ -1,0 +1,18 @@
+<div class="section">
+  <h1 class="title is-1"><%= @product.name %></h1>
+  <div class="columns">
+    <div class="column">
+
+    </div>
+    <div class="column">
+      <p><b>Descripción:</b> <%= @product.description %></p>
+      <p><b>Precio:</b> $<%= @product.price %></p>
+      <p><b>Cantidad disponible:</b> <%= @product.quantity %></p>
+    </div>
+  </div>
+
+  <%= link_to 'Editar producto', edit_product_path(@product) %>
+  <%= link_to 'Eliminar producto', @product,
+              method: :delete,
+          data: {confirm: 'Are you shure?'}%>
+</div>
