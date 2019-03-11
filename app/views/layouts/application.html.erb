@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Myapp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <%= link_to root_path do %>
+          <h1 class="has-text-centered title is-1 has-text-white">Quetzaat</h1>
+        <% end %>
+      </div>
+    </nav>
+    <%= yield %>
+    <footer class="footer">
+      <div class="container">
+        <p class="has-text-centered">Todos los derechos reservados &copycopyright Quetzaan.</p>
+      </div>
+    </footer>
+  </body>
+</html>
