@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+body, html {
+  color: white !important;
+  background: #444 !important;
+}
+
+.spacer {
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+
+  height: .5px !important;
+}
+
+a:hover {
+  color: #79a3cd
+}
