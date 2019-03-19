@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :products
-  resources :profile
 end
