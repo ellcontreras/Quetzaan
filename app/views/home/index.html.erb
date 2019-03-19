@@ -1,14 +1,18 @@
 <h1 class="title is-1 has-text-centered has-text-white">Pagina de inicio</h1>
 
 <div class="section">
-  <% @products.each do |product| %>
-    <div class="card">
-      <div class="card-content">
-        <%= link_to product.name, product %>
-      </div>
+  <div class="container">
+    <div class="container-pagination">
+      <% @products.each do |product| %>
+        <div class="card">
+          <div class="card-content">
+            <%= link_to product.name, product %>
+          </div>
+        </div>
+      <% end %>
+      <% if (@products.empty?) %>
+        No hay productos aún
+      <% end %>
     </div>
-  <% end %>
-  <% if (@products.empty?) %>
-    No hay productos aún
-  <% end %>
+  </div>
 </div>
