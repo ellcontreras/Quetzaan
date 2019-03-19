@@ -29,3 +29,18 @@ body, html {
 a:hover {
   color: #79a3cd
 }
+
+.container-pagination {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+}
+
+.container-pagination > * {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  flex-basis: 23%;
+}
