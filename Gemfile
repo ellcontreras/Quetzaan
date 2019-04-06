@@ -63,6 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 
-gem 'paperclip'
-
 gem "algoliasearch-rails"
+
+gem 'carrierwave', '~> 1.0'
