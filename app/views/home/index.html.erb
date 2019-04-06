@@ -1,4 +1,4 @@
-<h1 class="title is-1 has-text-centered has-text-white">Pagina de inicio</h1>
+<h1 class="title is-1 has-text-centered">Pagina de inicio</h1>
 
 <div class="section">
   <div class="container">
@@ -6,7 +6,9 @@
       <% @products.each do |product| %>
         <div class="card">
           <div class="card-content">
+            <%= image_tag(product.image.url) %>
             <%= link_to product.name, product %>
+            <p><b>Precio: </b> <%= product.price %></p>
           </div>
         </div>
       <% end %>

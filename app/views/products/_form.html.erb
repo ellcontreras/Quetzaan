@@ -1,26 +1,37 @@
-<%= form_with(model: @product, local: true) do |form| %>
-  <div class="form-control">
-    <%= form.label :nombre, class:"label has-text-white" %>
-    <%= form.text_field :name, class:"input" %>
+
+  <%= form_with(model: @product, local: true) do |form| %>
+   <div class="container-form">
+    <div class="form-control">
+      <%= form.label :nombre, class:"label" %>
+      <%= form.text_field :name, class:"input" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :precio, class:"label" %>
+      <%= form.text_field :price, class:"input" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :cantidad, class:"label" %>
+      <%= form.text_field :quantity, class:"input" %>
+    </div>
+
+     <%= form.label :Imagen, class:"label" %>
+     <div class="form-control">
+       <%= form.file_field :image %>
+     </div>
+
+    <div class="form-control">
+      <%= form.label :descripción, class:"label" %>
+      <%= form.text_area :description, class:"textarea" %>
+    </div>
+
+     <br>
+
+    <div class="is-grouped">
+      <div class="is-grouped-centered has-text-centered">
+        <%= form.submit :Guardar, class: "button is-info is-medium is-outlined" %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-control">
-    <%= form.label :precio, class:"label has-text-white" %>
-    <%= form.text_field :price, class:"input" %>
-  </div>
-
-  <div class="form-control">
-    <%= form.label :cantidad, class:"label has-text-white" %>
-    <%= form.text_field :quantity, class:"input" %>
-  </div>
-
-  <div class="form-control">
-    <%= form.label :descripción, class:"label has-text-white" %>
-    <%= form.text_area :description, class:"textarea" %>
-  </div>
-
-  <hr class="spacer">
-
-  <%= form.submit :Guardar, class: "button is-info is-medium" %>
-
-<% end %>
+  <% end %>
