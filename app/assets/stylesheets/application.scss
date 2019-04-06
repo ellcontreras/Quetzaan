@@ -13,9 +13,10 @@
  *= require_tree .
  *= require_self
  */
-body, html {
-  color: white !important;
-  background: #444 !important;
+body,
+html {
+  color: #445545 !important;
+  background: #f5f5f5 !important;
 }
 
 .spacer {
@@ -23,11 +24,11 @@ body, html {
   margin-left: 20%;
   margin-right: 20%;
 
-  height: .5px !important;
+  height: 0.5px !important;
 }
 
 a:hover {
-  color: #79a3cd
+  color: #79a3cd;
 }
 
 .container-pagination {
@@ -43,4 +44,17 @@ a:hover {
   margin-right: 1%;
   margin-bottom: 1%;
   flex-basis: 23%;
+}
+
+#card-home {
+  border-radius: 10px;
+}
+
+.navbar {
+  height: 75px;
+}
+
+.container-form {
+  width: 70%;
+  margin: auto;
 }
