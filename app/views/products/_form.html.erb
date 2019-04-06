@@ -16,9 +16,9 @@
       <%= form.text_field :quantity, class:"input" %>
     </div>
 
-     <%= form.label :Imagen, class:"label" %>
+     <%= form.label :imagenes, class:"label" %>
      <div class="form-control">
-       <%= form.file_field :image %>
+       <%= form.file_field :product_pictures, multiple: true %>
      </div>
 
     <div class="form-control">
