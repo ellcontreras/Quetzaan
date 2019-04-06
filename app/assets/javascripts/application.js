@@ -14,3 +14,36 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require algolia/v3/algoliasearch.min
+//= require jquery
+//= require quill.min
+//= require quill.global
+
+
+var client = algoliasearch("DNAY66KGWV", "b78b16de41e0e3f75bbdd6a471fae704");
+var index = client.initIndex('Product');
+index.search('est', { hitsPerPage: 10, page: 0 })
+    .then(function searchDone(content) {
+        console.log(content.hits)
+    })
+    .catch(function searchFailure(err) {
+        console.error(err);
+    });
+
+
+var defaults = {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block', 'image', 'link'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            ['clean']
+        ]
+    }
+};
+
+//This is the global config object
+Quilljs.setDefaults(defaults)
