@@ -4,29 +4,37 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="form-control">
-        <%= f.label :email, class:"label"%>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"input" %>
-      </div>
+      <div class="container-form">
+          <div class="field">
+            <%= f.label :email, class:"label"%>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"input" %>
+          </div>
 
-      <div class="form-control">
-        <%= f.label :contraseña, class:"label" %>
-        <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> caracteres minimo)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class:"input" %>
-      </div>
+          <div class="field">
+            <%= f.label :contraseña, class:"label" %>
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> caracteres minimo)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password", class:"input" %>
+          </div>
 
-      <div class="form-control">
-        <%= f.label :confirmar_contraseña, class:"label"%>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"input" %>
-      </div>
+          <div class="field">
+            <%= f.label :confirmar_contraseña, class:"label"%>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"input" %>
+          </div>
 
-      <hr>
+          <hr>
 
-      <div class="has-text-centered">
-        <%= f.submit "Registrarse", class:"button is-info is-large is-fullwidth" %>
-      </div>
+          <div class="is-grouped">
+            <div class="is-grouped-centered">
+              <div class="has-text-centered">
+                <%= f.submit "Registrarse", class:"button is-info is-medium is-outlined" %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       <div class="has-text-centered">
         <%= render "devise/shared/links" %>
       </div>
