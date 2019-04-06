@@ -1,24 +1,45 @@
 <div class="section">
-  <h1 class="title is-1"><%= @product.name %></h1>
-  <div class="columns">
-    <div class="column">
-      <% if @product.product_pictures? %>
-        <% @product.product_pictures.each do |picture| %>
-          <%= image_tag(picture.url) %>
-        <% end %>
-      <% else %>
-        No hay fotos para mostrar
-      <% end %>
+  <div class="container">
+
+    <div class="card">
+      <div class="card-content">
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <% if @product.product_pictures? %>
+              <div class="carousel" data-flickity='{ "cellAlign": "left", "contain": true }'>
+                <% @product.product_pictures.each do |picture| %>
+                  <%= image_tag(picture.url, class: "show") %>
+                <% end %>
+              </div>
+            <% else %>
+              No hay fotos para mostrar
+            <% end %>
+          </div>
+          <div class="column">
+            <h1 class="subtitle is-1"><%= @product.name %></h1>
+            <h3 class="subtitle is-3">$<%= @product.price %></h3>
+            <h3 class="subtitle is-3">Cantidad disponible: <%= @product.quantity %></h3>
+          </div>
+        </div>
+        <div>
+          <h3 class="subtitle is-3"> <%= raw(@product.description) %></h3>
+        </div>
+        <%= link_to 'Editar producto', edit_product_path(@product) %>
+        <%= link_to 'Eliminar producto', @product,
+                    method: :delete,
+                    data: {confirm: 'Estas seguro de eliminar este producto?'}%>
+      </div>
+      </div>
     </div>
-    <div class="column">
-      <p><b>Descripción:</b> <%= @product.description %></p>
-      <p><b>Precio:</b> $<%= @product.price %></p>
-      <p><b>Cantidad disponible:</b> <%= @product.quantity %></p>
-    </div>
+
   </div>
 
-  <%= link_to 'Editar producto', edit_product_path(@product) %>
-  <%= link_to 'Eliminar producto', @product,
-              method: :delete,
-          data: {confirm: 'Are you shure?'}%>
+
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    bulmaCarousel.attach('#carousel-product', {
+        loop: true,
+        autoplay: true,
+    });
+</script>
