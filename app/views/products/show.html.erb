@@ -2,7 +2,13 @@
   <h1 class="title is-1"><%= @product.name %></h1>
   <div class="columns">
     <div class="column">
-      <%= image_tag(@product.image.url) %>
+      <% if @product.product_pictures? %>
+        <% @product.product_pictures.each do |picture| %>
+          <%= image_tag(picture.url) %>
+        <% end %>
+      <% else %>
+        No hay fotos para mostrar
+      <% end %>
     </div>
     <div class="column">
       <p><b>Descripción:</b> <%= @product.description %></p>
