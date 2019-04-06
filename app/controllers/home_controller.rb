@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.all.reverse_order
   end
 end
