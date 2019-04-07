@@ -16,15 +16,23 @@
         <%= link_to root_path do %>
           <h1 class="has-text-centered title is-1 has-text-white">Quetzaat</h1>
         <% end %>
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <div class="navbar-end">
-        <% if(user_signed_in?) %>
-          <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
-          <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "navbar-item" %>
+
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+          <% if(user_signed_in?) %>
+            <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+            <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "navbar-item" %>
           <% else %>
-          <%= link_to "Registrarse", new_user_registration_path, class: "navbar-item" %>
-          <%= link_to "Iniciar Sesión", new_user_session_path, class: "navbar-item" %>
-        <% end %>
+            <%= link_to "Registrarse", new_user_registration_path, class: "navbar-item" %>
+            <%= link_to "Iniciar Sesión", new_user_session_path, class: "navbar-item" %>
+          <% end %>
+        </div>
       </div>
     </nav>
     <div class="container">
