@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    puts "Product", @product
+    puts 'Product', @product
 
     @product.save
     redirect_to @product
@@ -42,7 +42,13 @@ class ProductsController < ApplicationController
   end
 
   private
-    def product_params
-      params.require(:product).permit(:name, :description, :price, :quantity, {product_pictures: []})
-    end
+  def product_params
+    params.require(:product).permit(
+      :name,
+      :description,
+      :price,
+      :quantity,
+      { product_pictures: [] }
+    )
+  end
 end
