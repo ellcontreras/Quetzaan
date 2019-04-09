@@ -25,9 +25,6 @@ development:
   <<: *default
   database: quetzaat_development
   host: db
-  username: postgres
-  password:
-
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -85,5 +82,3 @@ test:
 production:
   <<: *default
   database: quetzaat_production
-  username: myapp
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
