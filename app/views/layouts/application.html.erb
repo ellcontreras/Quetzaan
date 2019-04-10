@@ -5,8 +5,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="shortcut icon" href="/assets/logo.jpeg" type="image/x-icon">
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.1/dist/algoliasearchLite.js" integrity="sha256-pMaJf0I78weeXGkRMBDO6jSulxC/q3sb0aPdtV2N8n0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.2.0" integrity="sha256-/8usMtTwZ01jujD7KAZctG0UMk2S2NDNirGFVBbBZCM=" crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default,Array.prototype.find,Array.prototype.includes"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/algolia-min.css" integrity="sha256-nkldBwBn2NQqRL1mod7BqHsJ6cEOn6u/ln6F/lI4CFo=" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
   </head>
 
@@ -27,22 +36,57 @@
         <div class="navbar-end">
           <% if(user_signed_in?) %>
             <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+            <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Categorias
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  <%= link_to "Ropa", "/products/category/ropa", class: "navbar-item" %>
+                </a>
+                <a class="navbar-item">
+                  <%= link_to "Artesanias", "/products/category/artesanias", class: "navbar-item" %>
+                </a>
+              </div>
+            </div>
             <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "navbar-item" %>
           <% else %>
             <%= link_to "Registrarse", new_user_registration_path, class: "navbar-item" %>
             <%= link_to "Iniciar Sesión", new_user_session_path, class: "navbar-item" %>
           <% end %>
+          <%= link_to "Ofertas", "/offers", class:"navbar-item" %>
+          <%= link_to "Acerca de", "/about", class: "navbar-item" %>
         </div>
+
+
       </div>
     </nav>
     <div class="container">
       <%= yield %>
     </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
-<!--    <footer class="footer">-->
-<!--      <div class="container">-->
-<!--        <p class="has-text-centered has-text-black">Todos los derechos reservados &copycopyright Quetzaan.</p>-->
-<!--      </div>-->
-<!--    </footer>-->
+    <footer class="footer">
+      <div class="container">
+        <div class="columns column-footer">
+          <div class="column">
+            <h3 class="subtitle is-3">E-Commerce</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias debitis deleniti deserunt earum enim hic, laborum nemo optio placeat praesentium quasi reiciendis, rem repellat sed sint velit veniam vero voluptates!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ipsum iusto modi molestias nihil odit tempore temporibus. Adipisci at aut beatae consequuntur explicabo fugit harum inventore iure possimus quae! Veritatis!</p>
+
+            <hr class="spacer">
+
+            <div class="tag is-link">Facebook</div>
+            <div class="tag is-danger">YouTube</div>
+            <div class="tag is-info">Twitter</div>
+          </div>
+          <div class="column">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.5549406281184!2d-101.21985243992764!3d21.485972854116998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfb059c8668e7f7d5!2sMonumento+al+Indio!5e0!3m2!1ses!2smx!4v1554738391754!5m2!1ses!2smx" width="600" height="750" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <p class="has-text-centered has-text-black">Hecho con <3 Quetzaat.</p>
+      </div>
+    </footer>
   </body>
 </html>

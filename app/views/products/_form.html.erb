@@ -21,6 +21,16 @@
        <%= form.file_field :product_pictures, multiple: true %>
      </div>
 
+     <div class="control">
+       <label class="label">Categoría:</label>
+       <div class="select">
+         <%= form.select :category do %>
+           <option value="ropa">Ropa</option>
+           <option value="artesanias">Artesanias</option>
+         <% end %>
+       </div>
+     </div>
+
     <div class="form-control">
       <%= form.label :descripción, class:"label" %>
       <%= form.text_area :description, class:"quill_container", id: "editor-container" %>

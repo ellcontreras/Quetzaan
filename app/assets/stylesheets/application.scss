@@ -17,7 +17,6 @@
 body,
 html {
   color: #445545 !important;
-  background: #f5f5f5 !important;
 }
 
 .spacer {
@@ -59,4 +58,13 @@ a:hover {
 .container-form {
   width: 70%;
   margin: auto;
+}
+
+.column-footer iframe {
+  height: 350px;
+}
+
+.footer {
+  margin-top: 3em;
+  padding-bottom: 15px;
 }

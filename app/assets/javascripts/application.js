@@ -19,18 +19,6 @@
 //= require quill.min
 //= require quill.global
 
-
-var client = algoliasearch("DNAY66KGWV", "b78b16de41e0e3f75bbdd6a471fae704");
-var index = client.initIndex('Product');
-index.search('est', { hitsPerPage: 10, page: 0 })
-    .then(function searchDone(content) {
-        console.log(content.hits)
-    })
-    .catch(function searchFailure(err) {
-        console.error(err);
-    });
-
-
 var defaults = {
     theme: 'snow',
     modules: {
@@ -49,13 +37,11 @@ var defaults = {
 Quilljs.setDefaults(defaults);
 
 document.addEventListener('DOMContentLoaded', () => {
-
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
     // Check if there are any navbar burgers
     if ($navbarBurgers.length > 0) {
-
         // Add a click event on each of them
         $navbarBurgers.forEach( el => {
             el.addEventListener('click', () => {
@@ -67,9 +53,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
                 el.classList.toggle('is-active');
                 $target.classList.toggle('is-active');
-
             });
         });
     }
-
 });
+
+const searchClient = algoliasearch("DNAY66KGWV", "b78b16de41e0e3f75bbdd6a471fae704");
+
+const search = instantsearch({
+    indexName: 'Product',
+    searchClient,
+    searchFunction(helper) {
+        if (helper.state.query === "") {
+            return;
+        }
+
+        helper.search();
+    }
+});
+
+search.addWidget(
+    instantsearch.widgets.searchBox({
+        container: '#search_input',
+        showLoadingIndicator: true,
+    })
+);
+
+search.addWidget(
+    instantsearch.widgets.hits({
+        container: '#hits',
+        templates: {
+            empty: "<br /><p class='has-text-centered'><b>No hay resultados que mostrar</b></p>",
+            item: "<li><a href=/products/{{{ objectID }}}>{{{  _highlightResult.name.value}}}</a></li>"
+        },
+        transformItems: items => items.map(item => item),
+    })
+);
+
+search.start();
