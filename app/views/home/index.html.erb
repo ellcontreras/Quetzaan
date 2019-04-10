@@ -17,7 +17,7 @@
         <div class="card">
           <div class="card-content">
             <% if product.product_pictures? %>
-              <%= image_tag(product.product_pictures[0].url) %>
+              <%= image_tag(product.product_pictures[0].url, class: "image image-home") %>
             <% else %>
               <img src="" alt="No hay imagen para mostrar"><br>
             <% end %>

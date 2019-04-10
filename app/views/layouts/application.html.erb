@@ -34,7 +34,7 @@
         <div class="navbar-end">
           <% if(user_signed_in?) %>
             <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
-            <a href="#" class="navbar-item">Mis pedidos</a>
+            <%= link_to "Mis pedidos", "/orders", class: "navbar-item" %>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 Categorias
@@ -49,7 +49,7 @@
               </div>
             </div>
             <a href="#" class="navbar-item">Ofertas</a>
-            <a href="#" class="navbar-item">Acerca de</a>
+            <%= link_to "Acerca de", "/about", class: "navbar-item" %>
             <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "navbar-item" %>
           <% else %>
             <%= link_to "Registrarse", new_user_registration_path, class: "navbar-item" %>
