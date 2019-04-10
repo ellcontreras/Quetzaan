@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    puts 'Product', @product
+    @product.user_id = current_user.id
 
     @product.save
     redirect_to @product
@@ -41,6 +41,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def mine
+    @products = Product.where("user_id = ? ", current_user.id.to_s)
+  end
+
+  def category
+    @products = Product.where("category = ?", params[:category])
+  end
+
   private
   def product_params
     params.require(:product).permit(
@@ -48,6 +56,7 @@ class ProductsController < ApplicationController
       :description,
       :price,
       :quantity,
+      :category,
       { product_pictures: [] }
     )
   end
