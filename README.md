@@ -3,9 +3,9 @@ E-commerce written with Ruby on Rails
 
 ## Getting Started
 1. Clone this repo on your local machine.
-    ```
-    $ git clone https://github.com/Obsinqsob01/Quetzaan.git
-    ```
+```
+$ git clone https://github.com/Obsinqsob01/Quetzaan.git
+```
 2. Install dependencies
 ```
 $ bundle install
