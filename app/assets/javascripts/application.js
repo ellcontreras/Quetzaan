@@ -76,6 +76,7 @@ search.addWidget(
     instantsearch.widgets.searchBox({
         container: '#search_input',
         showLoadingIndicator: true,
+        placeholder: "Ingresa tu busqueda..."
     })
 );
 
