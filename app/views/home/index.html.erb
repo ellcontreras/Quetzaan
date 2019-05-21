@@ -12,7 +12,7 @@
         </ul>
       </div>
     </div>
-    <div class="container-pagination">
+    <div class="container-pagination" id="show-products">
       <% @products.each do |product| %>
         <div class="card">
           <div class="card-content">
@@ -23,6 +23,7 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
+            <cart-button :id="<%= product.id %>" :name="`<%= product.name %>`" :price="<%= product.price %>"></cart-button>
           </div>
         </div>
       <% end %>
