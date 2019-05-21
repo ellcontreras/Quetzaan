@@ -23,7 +23,7 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
-            <cart-button :id="<%= product.id %>" :name="`<%= product.name %>`" :price="<%= product.price %>"></cart-button>
+            <cart-button id="<%= product.id %>" :name="`<%= product.name %>`" price="<%= product.price %>"></cart-button>
           </div>
         </div>
       <% end %>

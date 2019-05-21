@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', media: "all", "data-turbolinks-trak": "reload" %>
+    
   </head>
 
   <body>
@@ -53,7 +56,7 @@
               </div>
             </div>
             <div id="cart-shop" class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link is-arrowless">
+              <a class="navbar-link is-arrowless" href="/cart-shop">
                 Carrito de compra <span class="icon">
                   <i class="fas fa-shopping-cart"></i>
                 </span>
@@ -89,8 +92,6 @@
     <div class="container">
       <%= yield %>
     </div>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
     <footer class="footer">
       <div class="container">
         <div class="columns column-footer">
@@ -113,7 +114,7 @@
       </div>
     </footer>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+    <%= javascript_include_tag 'application', "data-turbolinks-suppress-warning": "", "data-turbolinks-eval": "false" %>
   </body>
 </html>
