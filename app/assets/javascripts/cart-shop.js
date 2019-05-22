@@ -40,7 +40,7 @@ var cartButtonAdd = Vue.component("cart-button", {
 });
 
 var cartButtonDelete = Vue.component("cart-button-delete", {
-  template: `<button class="button is-danger" title="Quitar producto del carrito" @click="handleDelete">
+  template: `<button class="button is-danger" title="Quitar producto del carrito" @click.native="handleDelete">
                     <span class="icon">
                         <i class="fas fa-times"></i>
                     </span>
