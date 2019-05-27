@@ -63,10 +63,9 @@ function renderCartProducts() {
 renderCartProducts();
 
 document.getElementById("btn_checkout").addEventListener("click", () => {
-  $.ajax({ url: '<%= checkout_path %>',
+  $.ajax({ url: '<%= checkouts_path %>',
     type: 'POST',
-    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-    data: products,
+    data: {authenticity_token: $('[name="csrf-token"]')[0].content, products},
     success: function(response) {
       console.log("hola que pedo")
     }
