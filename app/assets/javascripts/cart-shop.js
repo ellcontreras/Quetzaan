@@ -11,8 +11,16 @@ function commitProducts() {
 }
 
 function addProductToCart(product) {
-  products.push(product);
-  commitProducts();
+  if (products.filter(p => p.id === product.id).length === 0) {
+    products.push(product);
+    toastr.success(
+      "Agregado al carrito!",
+      "El producto se ha agregado al carrito"
+    );
+    return commitProducts();
+  }
+
+  toastr.warning("Ese producto ya esta en el carrito", "Info!");
 }
 
 function deleteProductFromCart(id) {
@@ -21,6 +29,11 @@ function deleteProductFromCart(id) {
       products.splice(i, 1);
     }
   }
+
+  toastr.error(
+    "Eliminado del carrito!",
+    "El producto se ha eliminado del carrito"
+  );
 
   commitProducts();
 }
@@ -35,7 +48,7 @@ function renderCartProducts() {
         product.id
       })" class="button is-danger is-small">
     <span class="icon"><i class="fas fa-times"></i></span></button>
-                      <p>${product.name}</p>
+                      <span class="has-text-black">${product.name}</span>
                       <hr class="navbar-divider"></div>`;
 
       total += parseInt(product.price);

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
   </head>
@@ -95,7 +97,7 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.5549406281184!2d-101.21985243992764!3d21.485972854116998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfb059c8668e7f7d5!2sMonumento+al+Indio!5e0!3m2!1ses!2smx!4v1554738391754!5m2!1ses!2smx" width="600" height="750" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
         </div>
-        <p class="has-text-centered has-text-black">Hecho con <3 por Quetzaat.</p>
+        <p class="has-text-centered has-text-black">Hecho con ❤️ por Quetzaat.</p>
       </div>
     </footer>
 
@@ -104,5 +106,6 @@
         console.log("I'm only run once on the initial page load");
     </script>
     <%= javascript_include_tag 'application', "data-turbolinks-suppress-warning": "", media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </body>
 </html>

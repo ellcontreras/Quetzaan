@@ -5,6 +5,11 @@
     <div id="cart_container1">
     </div>
     <p class="has-text-black has-text-right" id="total_text1"></p>
+
+    <button class="button is-info" id="btn_checkout">
+      <span class="icon"><i class="fas fa-shopping-basket"></i></span>
+      <span>Continuar con el pago</span>
+    </button>
   </div>
 </div>
 
@@ -41,7 +46,7 @@ function renderCartProducts() {
         product.id
       })" class="button is-danger is-small">
     <span class="icon"><i class="fas fa-times"></i></span></button>
-                      <p>${product.name}</p>
+                      <span class="has-text-black">${product.name}</span>
                       <hr>`;
 
       total += parseInt(product.price);
@@ -56,5 +61,16 @@ function renderCartProducts() {
 }
 
 renderCartProducts();
+
+document.getElementById("btn_checkout").addEventListener("click", () => {
+  $.ajax({ url: '<%= checkout_path %>',
+    type: 'POST',
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    data: products,
+    success: function(response) {
+      console.log("hola que pedo")
+    }
+  });
+})
 
 </script>
