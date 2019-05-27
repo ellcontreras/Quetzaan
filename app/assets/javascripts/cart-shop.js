@@ -1,131 +1,52 @@
-var cartDisplay = new Vue({
-  el: "#cart-shop",
-  data: () => ({
-    products: []
-  }),
-  beforeMount() {
-    this.products = JSON.parse(localStorage.getItem("products")) || [];
-  },
-  watch: {
-    products() {
-      localStorage.setItem("products", JSON.stringify(this.products));
-    }
-  },
-  computed: {
-    total() {
-      let t = 0;
+var products = [];
 
-      this.products.forEach(product => {
-        t += product.price;
-      });
+if (JSON.parse(localStorage.getItem("products")) !== undefined) {
+  products = JSON.parse(localStorage.getItem("products"));
+}
 
-      return t;
-    }
-  }
-});
+function commitProducts() {
+  localStorage.setItem("products", JSON.stringify(products));
+  document.getElementById("cart_container").innerHTML = "";
+  renderCartProducts();
+}
 
-var cartButtonAdd = Vue.component("cart-button", {
-  template: `<button class="button" @click="addToCart">Añadir al carro</button>`,
-  props: ["id", "name", "price"],
-  methods: {
-    addToCart() {
-      console.log("Detects que click in the button!");
-      // cartDisplay.products.push({
-      //   id: this.id,
-      //   name: this.name,
-      //   price: this.price
-      // });
+function addProductToCart(product) {
+  products.push(product);
+  commitProducts();
+}
+
+function deleteProductFromCart(id) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id === id) {
+      products.splice(i, 1);
     }
   }
-});
 
-var cartButtonDelete = Vue.component("cart-button-delete", {
-  template: `<button class="button is-danger" title="Quitar producto del carrito" @click.native="handleDelete">
-                    <span class="icon">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </button>`,
-  props: ["id"],
-  methods: {
-    handleDelete() {
-      console.log("Borra esta cosa");
+  commitProducts();
+}
 
-      for (var i = 0; i < cartDisplay.products.length; i++) {
-        if (cartDisplay.products[i].id === this.id) {
-          cartDisplay.products.splice(i, 1);
-        }
-      }
-    }
+function renderCartProducts() {
+  let cartContainer = document.getElementById("cart_container");
+  let total = 0;
+
+  if (products.length > 0) {
+    products.forEach(product => {
+      cartContainer.innerHTML += `<div class="navbar-item"><button onClick="deleteProductFromCart(${
+        product.id
+      })" class="button is-danger is-small">
+    <span class="icon"><i class="fas fa-times"></i></span></button>
+                      <p>${product.name}</p>
+                      <hr class="navbar-divider"></div>`;
+
+      total += parseInt(product.price);
+    });
+
+    document.getElementById("total_text").style.display = "block";
+    document.getElementById("total_text").innerHTML = `<b>Total: </b>$${total}`;
+  } else {
+    document.getElementById("total_text").style.display = "none";
+    cartContainer.innerHTML = `<div class="navbar-item"><p class="has-text-black">No has agregado productos al carrito</p></div>`;
   }
-});
+}
 
-var showProduct = new Vue({
-  el: "#show-products"
-});
-
-document.addEventListener("turbolinks:load", function() {
-  var cartDisplay = new Vue({
-    el: "#cart-shop",
-    data: () => ({
-      products: []
-    }),
-    beforeMount() {
-      this.products = JSON.parse(localStorage.getItem("products")) || [];
-    },
-    watch: {
-      products() {
-        localStorage.setItem("products", JSON.stringify(this.products));
-      }
-    },
-    computed: {
-      total() {
-        let t = 0;
-
-        this.products.forEach(product => {
-          t += product.price;
-        });
-
-        return t;
-      }
-    }
-  });
-
-  var cartButtonAdd = Vue.component("cart-button", {
-    template: `<button class="button" @click="addToCart">Añadir al carro</button>`,
-    props: ["id", "name", "price"],
-    methods: {
-      addToCart() {
-        console.log("Detects que click in the button!");
-        // cartDisplay.products.push({
-        //   id: this.id,
-        //   name: this.name,
-        //   price: this.price
-        // });
-      }
-    }
-  });
-
-  var cartButtonDelete = Vue.component("cart-button-delete", {
-    template: `<button class="button is-danger" title="Quitar producto del carrito" @click="handleDelete">
-                    <span class="icon">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </button>`,
-    props: ["id"],
-    methods: {
-      handleDelete() {
-        console.log("Borra esta cosa");
-
-        for (var i = 0; i < cartDisplay.products.length; i++) {
-          if (cartDisplay.products[i].id === this.id) {
-            cartDisplay.products.splice(i, 1);
-          }
-        }
-      }
-    }
-  });
-
-  var showProduct = new Vue({
-    el: "#show-products"
-  });
-});
+renderCartProducts();
