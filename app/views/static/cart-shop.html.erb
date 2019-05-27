@@ -15,6 +15,7 @@
 
 <script>
 var products = [];
+var total = 0;
 
 if (JSON.parse(localStorage.getItem("products")) !== undefined) {
   products = JSON.parse(localStorage.getItem("products"));
@@ -38,7 +39,6 @@ function deleteProductFromCart1(id) {
 
 function renderCartProducts() {
   let cartContainer = document.getElementById("cart_container1");
-  let total = 0;
 
   if (products.length > 0) {
     products.forEach(product => {
@@ -62,10 +62,19 @@ function renderCartProducts() {
 
 renderCartProducts();
 
+// @todo Set states for a checkout
+// @body the first is REQUESTED, but in controller we need to add the other states
+
 document.getElementById("btn_checkout").addEventListener("click", () => {
   $.ajax({ url: '<%= checkouts_path %>',
     type: 'POST',
-    data: {authenticity_token: $('[name="csrf-token"]')[0].content, products},
+    data: {
+      authenticity_token: $('[name="csrf-token"]')[0].content,
+      products_id: products.map(({ id }) => id),
+      total_amount: total,
+      user_id: <%= current_user.id %>,
+      status: 'REQUESTED'
+    },
     success: function(response) {
       console.log("hola que pedo")
     }
