@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_223710) do
+ActiveRecord::Schema.define(version: 2019_05_27_234839) do
+
+  create_table "checkout_products", force: :cascade do |t|
+    t.integer "products_id"
+    t.integer "checkout_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkout_id"], name: "index_checkout_products_on_checkout_id"
+    t.index ["products_id"], name: "index_checkout_products_on_products_id"
+  end
 
   create_table "checkouts", force: :cascade do |t|
-    t.integer "products_id"
     t.decimal "total_amount"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
-    t.index ["products_id"], name: "index_checkouts_on_products_id"
     t.index ["user_id"], name: "index_checkouts_on_user_id"
   end
 

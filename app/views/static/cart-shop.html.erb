@@ -66,17 +66,21 @@ renderCartProducts();
 // @body the first is REQUESTED, but in controller we need to add the other states
 
 document.getElementById("btn_checkout").addEventListener("click", () => {
-  $.ajax({ url: '<%= checkouts_path %>',
+  console.log("No escaparas de aqui no evitarás que llegue tu final")
+  $.ajax({
+    url: '<%= checkouts_path %>.json',
     type: 'POST',
     data: {
       authenticity_token: $('[name="csrf-token"]')[0].content,
-      products_id: products.map(({ id }) => id),
-      total_amount: total,
-      user_id: <%= current_user.id %>,
-      status: 'REQUESTED'
+      checkout: {
+        total_amount: total,
+        user_id: <%= current_user.id %>,
+        status: 'REQUESTED'
+      },
+      products_id: products.map(({ id }) => id)
     },
     success: function(response) {
-      console.log("hola que pedo")
+      console.log(response)
     }
   });
 })

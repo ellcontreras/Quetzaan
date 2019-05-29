@@ -26,10 +26,28 @@ class CheckoutsController < ApplicationController
   def create
     @checkout = Checkout.new(checkout_params)
 
+    @products = []
+
+    params[:products_id].each do |id|
+      @products.push Product.where(id: id).first
+    end
+
     respond_to do |format|
       if @checkout.save
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
+
+        @products.each do |product|
+          puts "PRODUCT IDDDDDD", product
+          @checkout_product = CheckoutProduct.new
+          @checkout_product.products_id = product.id
+          @checkout_product.checkout_id = @checkout.id
+
+          @checkout_product.save
+        end
+
         format.json { render :show, status: :created, location: @checkout }
+
+        # format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
+        
       else
         format.html { render :new }
         format.json { render json: @checkout.errors, status: :unprocessable_entity }
@@ -69,6 +87,6 @@ class CheckoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkout_params
-      params.require(:checkout).permit(:products_id, :total_amount, :user_id, :status)
+      params.require(:checkout).permit(:total_amount, :user_id, :status)
     end
 end
