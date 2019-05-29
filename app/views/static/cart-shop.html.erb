@@ -80,7 +80,8 @@ document.getElementById("btn_checkout").addEventListener("click", () => {
       products_id: products.map(({ id }) => id)
     },
     success: function(response) {
-      console.log(response)
+      console.log(response);
+      window.location = `/checkout/${response.id}`; 
     }
   });
 })
