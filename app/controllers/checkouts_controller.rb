@@ -10,6 +10,7 @@ class CheckoutsController < ApplicationController
   # GET /checkouts/1
   # GET /checkouts/1.json
   def show
+    @userdata_checkout = UserdataCheckout.new
   end
 
   # GET /checkouts/new
