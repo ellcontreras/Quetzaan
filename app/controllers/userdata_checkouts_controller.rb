@@ -25,10 +25,14 @@ class UserdataCheckoutsController < ApplicationController
   # POST /userdata_checkouts.json
   def create
     @userdata_checkout = UserdataCheckout.new(userdata_checkout_params)
+    @userdata_checkout.user_id = current_user.id
+    @userdata_checkout.checkout_id = params[:checkout_id]
 
     respond_to do |format|
       if @userdata_checkout.save
-        format.html { redirect_to @userdata_checkout, notice: 'Userdata checkout was successfully created.' }
+        update_checkout_status(params[:checkout_id])
+
+        format.html { redirect_to @checkout, notice: 'Userdata checkout was successfully created.' }
         format.json { render :show, status: :created, location: @userdata_checkout }
       else
         format.html { render :new }
@@ -69,6 +73,20 @@ class UserdataCheckoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def userdata_checkout_params
-      params.require(:userdata_checkout).permit(:user_id, :checkout_id, :name, :street, :external_number, :internal_number, :country, :zip_code, :state, :city)
+      params.require(:userdata_checkout).permit(:user_id, :checkout_id, :name, :street, :external_number, :internal_number, :country, :zip_code, :state, :city, :creditcart_number, :month, :year, :ccv)
+    end
+
+    def update_checkout_status(checkout_id)
+      @checkout = Checkout.find(checkout_id)
+
+      if @checkout.status == 'REQUESTED'
+        @checkout.status = 'CHECKING'
+      elsif @checkout.status == 'CHECKING'
+        @checkout.status = 'SHIPPED'
+      elsif @checkout == 'SHIPPED'
+        @checkout.status = 'DELIVERED'
+      end
+
+      @checkout.save
     end
 end

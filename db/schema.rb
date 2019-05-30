@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_131513) do
+ActiveRecord::Schema.define(version: 2019_05_30_135222) do
 
   create_table "checkout_products", force: :cascade do |t|
     t.integer "products_id"
@@ -56,6 +56,10 @@ ActiveRecord::Schema.define(version: 2019_05_30_131513) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "creditcart_number"
+    t.string "month"
+    t.string "year"
+    t.string "ccv"
     t.index ["checkout_id"], name: "index_userdata_checkouts_on_checkout_id"
     t.index ["user_id"], name: "index_userdata_checkouts_on_user_id"
   end
