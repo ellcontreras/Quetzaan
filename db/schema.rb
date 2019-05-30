@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_234839) do
+ActiveRecord::Schema.define(version: 2019_05_30_131513) do
 
   create_table "checkout_products", force: :cascade do |t|
     t.integer "products_id"
@@ -41,6 +41,23 @@ ActiveRecord::Schema.define(version: 2019_05_27_234839) do
     t.integer "user_id"
     t.string "category"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "userdata_checkouts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "checkout_id"
+    t.string "name"
+    t.string "street"
+    t.integer "external_number"
+    t.integer "internal_number"
+    t.string "country"
+    t.string "zip_code"
+    t.string "state"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkout_id"], name: "index_userdata_checkouts_on_checkout_id"
+    t.index ["user_id"], name: "index_userdata_checkouts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
