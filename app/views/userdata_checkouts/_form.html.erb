@@ -1,3 +1,4 @@
+<p>Por favor llena los datos del envío</p>
 <%= form_with(model: userdata_checkout, local: true) do |form| %>
   <% if userdata_checkout.errors.any? %>
     <div id="error_explanation">
@@ -12,56 +13,46 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <%= form.label :nombre, class: "label" %>
+    <%= form.text_field :name, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :checkout_id %>
-    <%= form.number_field :checkout_id %>
+    <%= form.label :calle, class: "label" %>
+    <%= form.text_field :street, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :numero_externo, class: "label" %>
+    <%= form.number_field :external_number, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :street %>
-    <%= form.text_field :street %>
+    <%= form.label "Numero interno (opcional)", class: "label" %>
+    <%= form.number_field :internal_number, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :external_number %>
-    <%= form.number_field :external_number %>
+    <%= form.label :país, class: "label" %>
+    <%= form.text_field :country, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :internal_number %>
-    <%= form.number_field :internal_number %>
+    <%= form.label :codigo_postal, class: "label" %>
+    <%= form.text_field :zip_code, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :country %>
-    <%= form.text_field :country %>
+    <%= form.label :estado, class: "label" %>
+    <%= form.text_field :state, class: "input" %>
   </div>
 
   <div class="field">
-    <%= form.label :zip_code %>
-    <%= form.text_field :zip_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state %>
-  </div>
-
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.label :ciudad, class: "label" %>
+    <%= form.text_field :city, class: "input" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Guardar", class: "button is-info" %>
   </div>
 <% end %>

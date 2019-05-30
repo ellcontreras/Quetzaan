@@ -16,7 +16,9 @@
     <% if @checkout.status == 'REQUESTED'%>
       <h2 class="subtitle is-2">Pedido Ordenado</h2>
       <div class="columns">
-        <div class="column"></div>
+        <div class="column">
+          <%= render 'userdata_checkouts/form', userdata_checkout: @userdata_checkout %>
+        </div>
         <div class="column">
           <h3 class="subtitle is-3">Productos pedidos</h3>
           <ul>
@@ -29,7 +31,6 @@
           </ul>
         </div>
       </div>
-      <button class="button is-info" id="btn_next_checking">Siguiente </button>
     <% elsif @checkout.status == 'CHECKING'%>
       <h2 class="subtitle is-2">Revisando Pago</h2>
     <% elsif @checkout.status == 'SHIPPED' %>
