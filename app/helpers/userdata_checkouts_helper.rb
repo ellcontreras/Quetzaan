@@ -1,0 +1,2 @@
+module UserdataCheckoutsHelper
+end
