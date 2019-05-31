@@ -30,14 +30,16 @@ class CheckoutsController < ApplicationController
     @products = []
 
     params[:products_id].each do |id|
-      @products.push Product.where(id: id).first
+      @product = Product.where(id: id).first
+      @products.push @product
+      @product.quantity -= 1
+      @product.save
     end
 
     respond_to do |format|
       if @checkout.save
 
         @products.each do |product|
-          puts "PRODUCT IDDDDDD", product
           @checkout_product = CheckoutProduct.new
           @checkout_product.products_id = product.id
           @checkout_product.checkout_id = @checkout.id
@@ -47,8 +49,6 @@ class CheckoutsController < ApplicationController
 
         format.json { render :show, status: :created, location: @checkout }
 
-        # format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
-        
       else
         format.html { render :new }
         format.json { render json: @checkout.errors, status: :unprocessable_entity }
@@ -59,14 +59,16 @@ class CheckoutsController < ApplicationController
   # PATCH/PUT /checkouts/1
   # PATCH/PUT /checkouts/1.json
   def update
+    update_checkout_status(params[:id])    
+
     respond_to do |format|
-      if @checkout.update(checkout_params)
-        format.html { redirect_to @checkout, notice: 'Checkout was successfully updated.' }
+      # if @checkout.update(checkout_params)
+        format.html { redirect_to "/my-sales", notice: 'Checkout was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkout }
-      else
-        format.html { render :edit }
-        format.json { render json: @checkout.errors, status: :unprocessable_entity }
-      end
+      # else
+        # format.html { render :edit }
+        # format.json { render json: @checkout.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
@@ -89,5 +91,19 @@ class CheckoutsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkout_params
       params.require(:checkout).permit(:total_amount, :user_id, :status)
+    end
+
+    def update_checkout_status(checkout_id)
+      @checkout = Checkout.find(checkout_id)
+
+      if @checkout.status == 'REQUESTED'
+        @checkout.status = 'CHECKING'
+      elsif @checkout.status == 'CHECKING'
+        @checkout.status = 'SHIPPED'
+      elsif @checkout == 'SHIPPED'
+        @checkout.status = 'DELIVERED'
+      end
+
+      @checkout.save
     end
 end

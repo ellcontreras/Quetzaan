@@ -81,7 +81,7 @@ document.getElementById("btn_checkout").addEventListener("click", () => {
     success: function(response) {
       products = [];
       localStorage.setItem("products", JSON.stringify(products));
-      window.location = `/checkout/${response.id}`; 
+      window.location = `/checkouts/${response.id}`; 
     }
   });
 })

@@ -33,6 +33,7 @@
       <h2 class="subtitle is-2">Revisando Pago</h2>
     <% elsif @checkout.status == 'SHIPPED' %>
       <h2 class="subtitle is-2">Enviado</h2>
+      <p>El pedido ha sido enviado</p>
     <% elsif @checkout.status == 'DELVERED' %>
       <h2 class="subtitle is-2">Entregado</h2>
     <% end%>
