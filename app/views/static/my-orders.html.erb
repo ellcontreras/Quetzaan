@@ -1,0 +1,69 @@
+<h1 class="title is-1 has-text-centered">Mis Ordenes</h1>
+
+<% if Checkout.where(user_id: current_user.id).length > 0 %>
+<div class="section">
+    <% @products = Product.where(user_id: current_user.id) %>
+
+    <div class="notification is-warning">
+        Al clickear en 'Actualizar Status' indicas que has recibido el pedido
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th><abbr title="id">ID</abbr></th>
+                <th>Total</th>
+                <th><abbr title="Status del pedido">Status del pedido</abbr></th>
+                <th><abbr title="Fecha">Fecha</abbr></th>
+                <th><abbr title="Datos del envío">Datos del envío</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @checkouts = Checkout.where(user_id: current_user.id) %>
+            <% @checkouts.each do |checkout| %>
+                <tr>
+                    <td><%= checkout.id %></td>
+                    <td><%= checkout.total_amount %></td>
+                    <td><%= checkout.status %></td>
+                    <td><%= checkout.created_at %></td>
+                    <td>
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Ver información</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content" style="padding: 15px;">
+                                    <div>
+                                        <% @userdata = UserdataCheckout.where(checkout_id: checkout.id).first %>
+                                        <p><b>Nombre: </b><%= @userdata.name %></p>
+                                        <p><b>Dirección: </b>
+                                            <%= @userdata.street %> #<%= @userdata.external_number %>
+                                            <% if @userdata.internal_number? %> interior: <%= checkout.internal_number %> <%end%>
+                                            </p>
+                                        <p><%= @userdata.city %> <%= @userdata.state %>, <%= @userdata.country %></p>
+                                        <p><b>Codigo postal: </b><%= @userdata.zip_code %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <% if checkout.status == 'SHIPPED' %>
+                        <td><%= link_to 'Actualizar status', checkout_path(checkout), method: :put, class: "button is-info" %></td>
+                    <% else %>
+                        <td><%= link_to 'Actualizar status', "#", class: "button is-info", disabled: true %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>    
+    </table>
+</div>
+<% else %>
+    <div class="section">
+        <p class="has-text-centered">No has ordenado nada todavia</p>
+    </div>
+<% end %>
