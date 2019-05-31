@@ -1,0 +1,233 @@
+<h1 class="title is-1 has-text-centered">Mis Ordenes</h1>
+
+<% if Checkout.where(user_id: current_user.id).length > 0 %>
+<div class="section">
+    <% @products = Product.where(user_id: current_user.id) %>
+
+    <div class="notification is-warning">
+        Al clickear en 'Actualizar Status' indicas que has recibido el pedido
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th><abbr title="id">ID</abbr></th>
+                <th>Total</th>
+                <th><abbr title="Status del pedido">Status del pedido</abbr></th>
+                <th><abbr title="Fecha">Fecha</abbr></th>
+                <th><abbr title="Datos del envío">Datos del envío</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @checkouts = Checkout.where(user_id: current_user.id) %>
+            <% @checkouts.each do |checkout| %>
+                <tr>
+                    <td><%= checkout.id %></td>
+                    <td><%= checkout.total_amount %></td>
+                    <td><%= checkout.status %></td>
+                    <td><%= checkout.created_at %></td>
+                    <td>
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Ver información</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content" style="padding: 15px;">
+                                    <div>
+                                        <% @userdata = UserdataCheckout.where(checkout_id: checkout.id).first %>
+                                        <p><b>Nombre: </b><%= @userdata.name %></p>
+                                        <p><b>Dirección: </b>
+                                            <%= @userdata.street %> #<%= @userdata.external_number %>
+                                            <% if @userdata.internal_number? %> interior: <%= checkout.internal_number %> <%end%>
+                                            </p>
+                                        <p><%= @userdata.city %> <%= @userdata.state %>, <%= @userdata.country %></p>
+                                        <p><b>Codigo postal: </b><%= @userdata.zip_code %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <% if checkout.status == 'SHIPPED' %>
+                        <td><button class="button is-info" id="btn_update_status">Actualizar status</button></td>
+                        <script>
+                            document.getElementById("btn_update_status").addEventListener("click", e => {
+                                $.ajax({
+                                    url: '<%= checkout_path(checkout) %>',
+                                    type: 'PUT',
+                                    data: {
+                                        authenticity_token: $('[name="csrf-token"]')[0].content,
+                                    },
+                                    success: function(response) {
+                                        location.reload();
+                                    }
+                                });
+                            });
+                        </script>
+                    <% else %>
+                        <td><button class="button is-info" disabled>Actualizar status</button></td>
+                    <% end %>
+
+                    <% unless Puntutation.where(checkout_id: @checkout).empty? %>
+                        <td><button class="button is-success" id="myBtn">Deja tu puntuación</button></td>
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2 class="subtitle is-2">Puntua tu compra!</h2>
+                                <input id="sliderWithValue" class="slider has-output is-medium is-success" min="1" max="5" value="3" step="1" type="range">
+                                <output for="sliderWithValue">3</output>
+
+                                <div class="control">
+                                    <label class="label">Deja tu comentario</label>
+                                    <textarea id="comment" class="textarea"></textarea>
+                                </div>
+                        
+                                <div class="control">
+                                    <button class="button is-link" name="upload_ranking" checkoutid="<%= checkout.id %>">Subir</button>
+                                </div>
+                            </div>
+
+                            </div>
+
+                        <script>
+                            // Find output DOM associated to the DOM element passed as parameter
+function findOutputForSlider( element ) {
+   var idVal = element.id;
+   outputs = document.getElementsByTagName( 'output' );
+   for( var i = 0; i < outputs.length; i++ ) {
+     if ( outputs[ i ].htmlFor == idVal )
+       return outputs[ i ];
+   }
+}
+
+function getSliderOutputPosition( slider ) {
+  // Update output position
+  var newPlace,
+      minValue;
+
+  var style = window.getComputedStyle( slider, null );
+  // Measure width of range input
+  sliderWidth = parseInt( style.getPropertyValue( 'width' ), 10 );
+
+  // Figure out placement percentage between left and right of input
+  if ( !slider.getAttribute( 'min' ) ) {
+    minValue = 0;
+  } else {
+    minValue = slider.getAttribute( 'min' );
+  }
+  var newPoint = ( slider.value - minValue ) / ( slider.getAttribute( 'max' ) - minValue );
+
+  // Prevent bubble from going beyond left or right (unsupported browsers)
+  if ( newPoint < 0 ) {
+    newPlace = 0;
+  } else if ( newPoint > 1 ) {
+    newPlace = sliderWidth;
+  } else {
+    newPlace = sliderWidth * newPoint;
+  }
+
+  return {
+    'position': newPlace + 'px'
+  }
+}
+
+document.addEventListener( 'DOMContentLoaded', function () {
+  // Get all document sliders
+  var sliders = document.querySelectorAll( 'input[type="range"].slider' );
+  [].forEach.call( sliders, function ( slider ) {
+    var output = findOutputForSlider( slider );
+    if ( output ) {
+      if ( slider.classList.contains( 'has-output-tooltip' ) ) {
+        // Get new output position
+        var newPosition = getSliderOutputPosition( slider );
+
+        // Set output position
+        output.style[ 'left' ] = newPosition.position;
+      }
+
+      // Add event listener to update output when slider value change
+      slider.addEventListener( 'input', function( event ) {
+        if ( event.target.classList.contains( 'has-output-tooltip' ) ) {
+          // Get new output position
+          var newPosition = getSliderOutputPosition( event.target );
+
+          // Set output position
+          output.style[ 'left' ] = newPosition.position;
+        }
+
+        // Update output with slider value
+        output.value = event.target.value;
+      } );
+    }
+  } );
+} );
+                        </script>
+                    <% else %>
+                        <td>Ya has puntuado esta compra!</td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>    
+    </table>
+</div>
+<% else %>
+    <div class="section">
+        <p class="has-text-centered">No has ordenado nada todavia</p>
+    </div>
+<% end %>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+document.getElementsByName("upload_ranking").forEach(e => {
+    e.addEventListener("click", event => {
+        let checkoutid = event.target.attributes.checkoutid.value;
+
+        $.ajax({
+            url: '<%= puntuation_path %>',
+            type: 'POST',
+            data: {
+                authenticity_token: $('[name="csrf-token"]')[0].content,
+                puntutation: {
+                    puntutation: document.getElementById("sliderWithValue").value,
+                    comment: document.getElementById("comment").value,
+                    checkout_id: checkoutid
+                }
+            },
+            success: function(response) {
+                location.reload();
+            }
+        });
+    })
+});
+
+</script>

@@ -1,0 +1,52 @@
+<p>
+  <strong>User:</strong>
+  <%= @userdata_checkout.user_id %>
+</p>
+
+<p>
+  <strong>Checkout:</strong>
+  <%= @userdata_checkout.checkout_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @userdata_checkout.name %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @userdata_checkout.street %>
+</p>
+
+<p>
+  <strong>External number:</strong>
+  <%= @userdata_checkout.external_number %>
+</p>
+
+<p>
+  <strong>Internal number:</strong>
+  <%= @userdata_checkout.internal_number %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @userdata_checkout.country %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @userdata_checkout.zip_code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @userdata_checkout.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @userdata_checkout.city %>
+</p>
+
+<%= link_to 'Edit', edit_userdata_checkout_path(@userdata_checkout) %> |
+<%= link_to 'Back', userdata_checkouts_path %>

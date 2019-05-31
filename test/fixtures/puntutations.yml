@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  puntutation: 1
+  comment: MyString
+  user: one
+  checkout: one
+
+two:
+  puntutation: 1
+  comment: MyString
+  user: two
+  checkout: two

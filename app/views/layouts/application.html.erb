@@ -7,16 +7,18 @@
 
     <link rel="shortcut icon" href="/assets/logo.jpeg" type="image/x-icon">
     
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.1/dist/algoliasearchLite.js" integrity="sha256-pMaJf0I78weeXGkRMBDO6jSulxC/q3sb0aPdtV2N8n0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.2.0" integrity="sha256-/8usMtTwZ01jujD7KAZctG0UMk2S2NDNirGFVBbBZCM=" crossorigin="anonymous"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default,Array.prototype.find,Array.prototype.includes"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.1/themes/algolia-min.css" integrity="sha256-nkldBwBn2NQqRL1mod7BqHsJ6cEOn6u/ln6F/lI4CFo=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -35,19 +37,45 @@
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
           <% if(user_signed_in?) %>
-            <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
-            <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Productos
+              </a>
+              <div class="navbar-dropdown">
+                <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
+                <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+              </div>
+            </div>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 Categorias
               </a>
               <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  <%= link_to "Ropa", "/products/category/ropa", class: "navbar-item" %>
-                </a>
-                <a class="navbar-item">
-                  <%= link_to "Artesanias", "/products/category/artesanias", class: "navbar-item" %>
-                </a>
+                <%= link_to "Ropa", "/products/category/ropa", class: "navbar-item" %>
+                <%= link_to "Artesanias", "/products/category/artesanias", class: "navbar-item" %>
+              </div>
+            </div>
+            
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Pedidos
+              </a>
+              <div class="navbar-dropdown">
+                <%= link_to 'Mis Ventas', "/my-sales", class: "navbar-item" %>
+                <%= link_to 'Mis Ordenes', "/my-orders", class: "navbar-item" %>
+              </div>
+            </div>
+
+            <div id="cart-shop" class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link is-arrowless" href="/cart-shop">
+                Carrito de compra <span class="icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+              </a>
+              <div class="navbar-dropdown" id="navbar-dropdown">
+                <div id="cart_container">
+                </div>
+                <p class="has-text-black has-text-right" id="total_text"></p>
               </div>
             </div>
             <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "navbar-item" %>
@@ -65,8 +93,6 @@
     <div class="container">
       <%= yield %>
     </div>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
     <footer class="footer">
       <div class="container">
         <div class="columns column-footer">
@@ -85,8 +111,15 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.5549406281184!2d-101.21985243992764!3d21.485972854116998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfb059c8668e7f7d5!2sMonumento+al+Indio!5e0!3m2!1ses!2smx!4v1554738391754!5m2!1ses!2smx" width="600" height="750" frameborder="0" style="border:0" allowfullscreen></iframe>
           </div>
         </div>
-        <p class="has-text-centered has-text-black">Hecho con <3 por Quetzaat.</p>
+        <p class="has-text-centered has-text-black">Hecho con ❤️ por Quetzaat.</p>
       </div>
     </footer>
+
+    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+    <script type="text/javascript" data-turbolinks-eval=false>
+        console.log("I'm only run once on the initial page load");
+    </script>
+    <%= javascript_include_tag 'application', "data-turbolinks-suppress-warning": "", media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </body>
 </html>

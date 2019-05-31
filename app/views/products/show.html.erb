@@ -24,16 +24,21 @@
         <div>
           <h3 class="subtitle is-3"> <%= raw(@product.description) %></h3>
         </div>
-        <%= link_to 'Editar producto', edit_product_path(@product) %>
-        <%= link_to 'Eliminar producto', @product,
+        
+        <% if @product.user_id == current_user.id %>
+          <%= link_to 'Editar producto', edit_product_path(@product) %>
+          <%= link_to 'Eliminar producto', @product,
                     method: :delete,
                     data: {confirm: 'Estas seguro de eliminar este producto?'}%>
+        <% end %>
+
       </div>
       </div>
     </div>
 
   </div>
 
+  <%# @todo Add puntuations in products %>
 
 </div>
 

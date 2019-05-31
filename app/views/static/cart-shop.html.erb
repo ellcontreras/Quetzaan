@@ -1,0 +1,89 @@
+<h1 class="title is-1 has-text-centered">Mi carrito de compras</h1>
+
+<div class="card" id="navbar-dropdown1">
+  <div class="card-content">
+    <div id="cart_container1">
+    </div>
+    <p class="has-text-black has-text-right" id="total_text1"></p>
+
+    <button class="button is-info" id="btn_checkout">
+      <span class="icon"><i class="fas fa-shopping-basket"></i></span>
+      <span>Continuar con el pago</span>
+    </button>
+  </div>
+</div>
+
+<script>
+var products = [];
+var total = 0;
+
+if (JSON.parse(localStorage.getItem("products")) !== undefined) {
+  products = JSON.parse(localStorage.getItem("products"));
+}
+
+function commitProducts() {
+  localStorage.setItem("products", JSON.stringify(products));
+  document.getElementById("cart_container").innerHTML = "";
+  renderCartProducts();
+}
+
+function deleteProductFromCart1(id) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id === id) {
+      products.splice(i, 1);
+    }
+  }
+
+  commitProducts();
+}
+
+function renderCartProducts() {
+  let cartContainer = document.getElementById("cart_container1");
+
+  if (products.length > 0) {
+    products.forEach(product => {
+      cartContainer.innerHTML += `<div class="navbar-item"><button onClick="deleteProductFromCart1(${
+        product.id
+      })" class="button is-danger is-small">
+    <span class="icon"><i class="fas fa-times"></i></span></button>
+                      <span class="has-text-black">${product.name}</span>
+                      <hr>`;
+
+      total += parseInt(product.price);
+    });
+
+    document.getElementById("total_text1").style.display = "block";
+    document.getElementById("total_text1").innerHTML = `<b>Total: </b>$${total}`;
+  } else {
+    document.getElementById("total_text1").style.display = "none";
+    cartContainer.innerHTML = `<p class="has-text-black">No has agregado productos al carrito</p>`;
+  }
+}
+
+renderCartProducts();
+
+// @todo Set states for a checkout
+// @body the first is REQUESTED, but in controller we need to add the other states
+
+document.getElementById("btn_checkout").addEventListener("click", () => {
+  $.ajax({
+    url: '<%= checkouts_path %>.json',
+    type: 'POST',
+    data: {
+      authenticity_token: $('[name="csrf-token"]')[0].content,
+      checkout: {
+        total_amount: total,
+        user_id: <%= current_user.id %>,
+        status: 'REQUESTED'
+      },
+      products_id: products.map(({ id }) => id)
+    },
+    success: function(response) {
+      products = [];
+      localStorage.setItem("products", JSON.stringify(products));
+      window.location = `/checkouts/${response.id}`; 
+    }
+  });
+})
+
+</script>

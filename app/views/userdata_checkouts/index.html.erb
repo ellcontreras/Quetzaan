@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Userdata Checkouts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Checkout</th>
+      <th>Name</th>
+      <th>Street</th>
+      <th>External number</th>
+      <th>Internal number</th>
+      <th>Country</th>
+      <th>Zip code</th>
+      <th>State</th>
+      <th>City</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @userdata_checkouts.each do |userdata_checkout| %>
+      <tr>
+        <td><%= userdata_checkout.user_id %></td>
+        <td><%= userdata_checkout.checkout_id %></td>
+        <td><%= userdata_checkout.name %></td>
+        <td><%= userdata_checkout.street %></td>
+        <td><%= userdata_checkout.external_number %></td>
+        <td><%= userdata_checkout.internal_number %></td>
+        <td><%= userdata_checkout.country %></td>
+        <td><%= userdata_checkout.zip_code %></td>
+        <td><%= userdata_checkout.state %></td>
+        <td><%= userdata_checkout.city %></td>
+        <td><%= link_to 'Show', userdata_checkout %></td>
+        <td><%= link_to 'Edit', edit_userdata_checkout_path(userdata_checkout) %></td>
+        <td><%= link_to 'Destroy', userdata_checkout, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Userdata Checkout', new_userdata_checkout_path %>

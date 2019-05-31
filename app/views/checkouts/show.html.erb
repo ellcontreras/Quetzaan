@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-content">
+    <h1 class="subtitle is-1 has-text-centered">Status de la compra #<%= @checkout.id %></h1>
+
+    <div class="tabs">
+      <ul>
+        <li <% if @checkout.status == 'REQUESTED' %> class="is-active" <% end %>><a>Ordenado</a></li>
+        <li <% if @checkout.status == 'CHECKING' %> class="is-active" <% end %>><a>Revisando Pago</a></li>
+        <li <% if @checkout.status == 'SHIPPED' %> class="is-active" <% end %>><a>Enviado</a></li>
+        <li <% if @checkout.status == 'DELIVERED' %> class="is-active" <% end %>><a>Entregado</a></li>
+      </ul>
+    </div>
+
+    <% if @checkout.status == 'REQUESTED'%>
+      <h2 class="subtitle is-2 has-text-centered">Pedido Ordenado</h2>
+      <div class="columns">
+        <div class="column">
+          <%= render 'userdata_checkouts/form', userdata_checkout: @userdata_checkout %>
+        </div>
+        <div class="column">
+          <h3 class="subtitle is-3">Productos pedidos</h3>
+          <ul>
+            <% @checkout.checkout_product.each do |checkout_product| %>
+              <li>
+                <img class="img-checkout" src="<%= Product.find(checkout_product.products_id).product_pictures[0].url %>" alt="">
+                <%= Product.find(checkout_product.products_id).name %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% elsif @checkout.status == 'CHECKING'%>
+      <h2 class="subtitle is-2">Revisando Pago</h2>
+    <% elsif @checkout.status == 'SHIPPED' %>
+      <h2 class="subtitle is-2">Enviado</h2>
+      <p>El pedido ha sido enviado</p>
+    <% elsif @checkout.status == 'DELVERED' %>
+      <h2 class="subtitle is-2">Entregado</h2>
+    <% end%>
+
+  </div>
+</div>

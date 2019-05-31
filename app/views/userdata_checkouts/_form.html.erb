@@ -1,0 +1,86 @@
+<p>Por favor llena los datos del envío</p>
+<%= form_with(model: userdata_checkout, local: true) do |form| %>
+  <% if userdata_checkout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(userdata_checkout.errors.count, "error") %> prohibited this userdata_checkout from being saved:</h2>
+
+      <ul>
+      <% userdata_checkout.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2 class="subtitle is-2">Información Bancaria</h2>
+  <div class="field">
+    <%= form.label :numero_de_tarjeta, class: "label" %>
+    <%= form.text_field :creditcart_number, class: "input", maxlength: "20", placeholder: "1234 1234 1234 1234" %>
+  </div>
+
+  <div class="field is-grouped is-grouped-centere">
+    <div class="control">
+      <%= form.label :mes, class: "label" %>
+      <%= form.text_field :month, class: "input", maxlength: "2", placeholder: "09" %>
+    </div>
+
+    <div class="control">
+      <%= form.label :año, class: "label" %>
+      <%= form.text_field :year, class: "input", maxlength: "4", placeholder: "2021" %>
+    </div>
+
+    <div class="control">
+      <%= form.label :ccv, class: "label" %>
+      <%= form.text_field :ccv, class: "input", maxlength: "3", placeholder: "123" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 class="subtitle is-2">Información Personal</h2>
+  <div class="field">
+    <%= form.label :nombre, class: "label" %>
+    <%= form.text_field :name, class: "input", placeholder: "Luis Contreras Guerra" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calle, class: "label" %>
+    <%= form.text_field :street, class: "input", placeholder: "5 de Febrero" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero_externo, class: "label" %>
+    <%= form.number_field :external_number, class: "input", placeholder: "#101" %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Numero interno (opcional)", class: "label" %>
+    <%= form.number_field :internal_number, class: "input" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :país, class: "label" %>
+    <%= form.text_field :country, class: "input", placeholder: "México" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :codigo_postal, class: "label" %>
+    <%= form.text_field :zip_code, class: "input", placeholder: "37600" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estado, class: "label" %>
+    <%= form.text_field :state, class: "input", placeholder: "Guanajuato" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ciudad, class: "label" %>
+    <%= form.text_field :city, class: "input", placeholder: "San Felipe" %>
+  </div>
+
+  <%= hidden_field_tag 'checkout_id', params[:id] %>
+
+  <div class="actions">
+    <%= form.submit "Guardar", class: "button is-info" %>
+  </div>
+<% end %>

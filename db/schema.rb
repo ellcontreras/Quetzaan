@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_031608) do
+ActiveRecord::Schema.define(version: 2019_05_31_222946) do
+
+  create_table "checkout_products", force: :cascade do |t|
+    t.integer "products_id"
+    t.integer "checkout_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkout_id"], name: "index_checkout_products_on_checkout_id"
+    t.index ["products_id"], name: "index_checkout_products_on_products_id"
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.decimal "total_amount"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.index ["user_id"], name: "index_checkouts_on_user_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.text "name"
@@ -23,6 +41,38 @@ ActiveRecord::Schema.define(version: 2019_04_10_031608) do
     t.integer "user_id"
     t.string "category"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "puntutations", force: :cascade do |t|
+    t.integer "puntutation"
+    t.string "comment"
+    t.integer "user_id"
+    t.integer "checkout_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkout_id"], name: "index_puntutations_on_checkout_id"
+    t.index ["user_id"], name: "index_puntutations_on_user_id"
+  end
+
+  create_table "userdata_checkouts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "checkout_id"
+    t.string "name"
+    t.string "street"
+    t.integer "external_number"
+    t.integer "internal_number"
+    t.string "country"
+    t.string "zip_code"
+    t.string "state"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "creditcart_number"
+    t.string "month"
+    t.string "year"
+    t.string "ccv"
+    t.index ["checkout_id"], name: "index_userdata_checkouts_on_checkout_id"
+    t.index ["user_id"], name: "index_userdata_checkouts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
