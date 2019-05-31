@@ -1,7 +1,14 @@
 var products = [];
 
-if (JSON.parse(localStorage.getItem("products")) !== null || JSON.parse(localStorage.getItem("products")) !== undefined) {
-  products = JSON.parse(localStorage.getItem("products"));
+try {
+  if (
+    JSON.parse(localStorage.getItem("products")) !== null ||
+    JSON.parse(localStorage.getItem("products")) !== undefined
+  ) {
+    products = JSON.parse(localStorage.getItem("products"));
+  }
+} catch (er) {
+  console.log(er);
 }
 
 function commitProducts() {
