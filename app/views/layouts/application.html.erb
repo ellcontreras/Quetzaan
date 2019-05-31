@@ -37,22 +37,35 @@
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
           <% if(user_signed_in?) %>
-            <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
-            <%= link_to 'Mis Ventas', "/my-sales", class: "navbar-item" %>
-            <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Productos
+              </a>
+              <div class="navbar-dropdown">
+                <%= link_to 'Mis Ventas', "/my-sales", class: "navbar-item" %>
+                <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+              </div>
+            </div>
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 Categorias
               </a>
               <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  <%= link_to "Ropa", "/products/category/ropa", class: "navbar-item" %>
-                </a>
-                <a class="navbar-item">
-                  <%= link_to "Artesanias", "/products/category/artesanias", class: "navbar-item" %>
-                </a>
+                <%= link_to "Ropa", "/products/category/ropa", class: "navbar-item" %>
+                <%= link_to "Artesanias", "/products/category/artesanias", class: "navbar-item" %>
               </div>
             </div>
+            
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Pedidos
+              </a>
+              <div class="navbar-dropdown">
+                <%= link_to 'Mis Ventas', "/my-sales", class: "navbar-item" %>
+                <%= link_to 'Mis Ordenes', "/my-orders", class: "navbar-item" %>
+              </div>
+            </div>
+
             <div id="cart-shop" class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link is-arrowless" href="/cart-shop">
                 Carrito de compra <span class="icon">
