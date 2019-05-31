@@ -1,10 +1,13 @@
 var products = [];
 
 try {
+  console.log("A ver");
+
   if (
     JSON.parse(localStorage.getItem("products")) !== null ||
     JSON.parse(localStorage.getItem("products")) !== undefined
   ) {
+    console.log("A ver 1");
     products = JSON.parse(localStorage.getItem("products"));
   }
 } catch (er) {
