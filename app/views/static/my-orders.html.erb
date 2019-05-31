@@ -72,7 +72,7 @@
                         <td><button class="button is-info" disabled>Actualizar status</button></td>
                     <% end %>
 
-                    <% if true %>
+                    <% unless Puntutation.where(checkout_id: @checkout).empty? %>
                         <td><button class="button is-success" id="myBtn">Deja tu puntuación</button></td>
                         <div id="myModal" class="modal">
                             <!-- Modal content -->
@@ -167,7 +167,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
   } );
 } );
                         </script>
-
+                    <% else %>
+                        <td>Ya has puntuado esta compra!</td>
                     <% end %>
                 </tr>
             <% end %>
