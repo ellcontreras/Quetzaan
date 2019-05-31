@@ -53,9 +53,121 @@
                         </div>
                     </td>
                     <% if checkout.status == 'SHIPPED' %>
-                        <td><%= link_to 'Actualizar status', checkout_path(checkout), method: :put, class: "button is-info" %></td>
+                        <td><button class="button is-info" id="btn_update_status">Actualizar status</button></td>
+                        <script>
+                            document.getElementById("btn_update_status").addEventListener("click", e => {
+                                $.ajax({
+                                    url: '<%= checkout_path(checkout) %>',
+                                    type: 'PUT',
+                                    data: {
+                                        authenticity_token: $('[name="csrf-token"]')[0].content,
+                                    },
+                                    success: function(response) {
+                                        location.reload();
+                                    }
+                                });
+                            });
+                        </script>
                     <% else %>
-                        <td><%= link_to 'Actualizar status', "#", class: "button is-info", disabled: true %></td>
+                        <td><button class="button is-info" disabled>Actualizar status</button></td>
+                    <% end %>
+
+                    <% if true %>
+                        <td><button class="button is-success" id="myBtn">Deja tu puntuación</button></td>
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2 class="subtitle is-2">Puntua tu compra!</h2>
+                                <input id="sliderWithValue" class="slider has-output is-medium is-success" min="1" max="5" value="3" step="1" type="range">
+                                <output for="sliderWithValue">3</output>
+
+                                <div class="control">
+                                    <label class="label">Deja tu comentario</label>
+                                    <textarea id="comment" class="textarea"></textarea>
+                                </div>
+                        
+                                <div class="control">
+                                    <button class="button is-link" name="upload_ranking" checkoutid="<%= checkout.id %>">Subir</button>
+                                </div>
+                            </div>
+
+                            </div>
+
+                        <script>
+                            // Find output DOM associated to the DOM element passed as parameter
+function findOutputForSlider( element ) {
+   var idVal = element.id;
+   outputs = document.getElementsByTagName( 'output' );
+   for( var i = 0; i < outputs.length; i++ ) {
+     if ( outputs[ i ].htmlFor == idVal )
+       return outputs[ i ];
+   }
+}
+
+function getSliderOutputPosition( slider ) {
+  // Update output position
+  var newPlace,
+      minValue;
+
+  var style = window.getComputedStyle( slider, null );
+  // Measure width of range input
+  sliderWidth = parseInt( style.getPropertyValue( 'width' ), 10 );
+
+  // Figure out placement percentage between left and right of input
+  if ( !slider.getAttribute( 'min' ) ) {
+    minValue = 0;
+  } else {
+    minValue = slider.getAttribute( 'min' );
+  }
+  var newPoint = ( slider.value - minValue ) / ( slider.getAttribute( 'max' ) - minValue );
+
+  // Prevent bubble from going beyond left or right (unsupported browsers)
+  if ( newPoint < 0 ) {
+    newPlace = 0;
+  } else if ( newPoint > 1 ) {
+    newPlace = sliderWidth;
+  } else {
+    newPlace = sliderWidth * newPoint;
+  }
+
+  return {
+    'position': newPlace + 'px'
+  }
+}
+
+document.addEventListener( 'DOMContentLoaded', function () {
+  // Get all document sliders
+  var sliders = document.querySelectorAll( 'input[type="range"].slider' );
+  [].forEach.call( sliders, function ( slider ) {
+    var output = findOutputForSlider( slider );
+    if ( output ) {
+      if ( slider.classList.contains( 'has-output-tooltip' ) ) {
+        // Get new output position
+        var newPosition = getSliderOutputPosition( slider );
+
+        // Set output position
+        output.style[ 'left' ] = newPosition.position;
+      }
+
+      // Add event listener to update output when slider value change
+      slider.addEventListener( 'input', function( event ) {
+        if ( event.target.classList.contains( 'has-output-tooltip' ) ) {
+          // Get new output position
+          var newPosition = getSliderOutputPosition( event.target );
+
+          // Set output position
+          output.style[ 'left' ] = newPosition.position;
+        }
+
+        // Update output with slider value
+        output.value = event.target.value;
+      } );
+    }
+  } );
+} );
+                        </script>
+
                     <% end %>
                 </tr>
             <% end %>
@@ -67,3 +179,54 @@
         <p class="has-text-centered">No has ordenado nada todavia</p>
     </div>
 <% end %>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+document.getElementsByName("upload_ranking").forEach(e => {
+    e.addEventListener("click", event => {
+        let checkoutid = event.target.attributes.checkoutid.value;
+
+        $.ajax({
+            url: '<%= puntuation_path %>',
+            type: 'POST',
+            data: {
+                authenticity_token: $('[name="csrf-token"]')[0].content,
+                puntutation: {
+                    puntutation: document.getElementById("sliderWithValue").value,
+                    comment: document.getElementById("comment").value,
+                    checkout_id: checkoutid
+                }
+            },
+            success: function(response) {
+                location.reload();
+            }
+        });
+    })
+});
+
+</script>

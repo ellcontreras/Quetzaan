@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :products
 
+  post "/puntuation/" => "puntutation#create", :as => :puntuation
   get "/products/category/:category" => "products#category"
   get "/my-products" => "products#mine"
   get "/:page" => "static#show"

@@ -63,7 +63,7 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       # if @checkout.update(checkout_params)
-        format.html { redirect_to "/my-sales", notice: 'Checkout was successfully updated.' }
+        # format.html { redirect_to "/my-sales", notice: 'Checkout was successfully updated.' }
         format.json { render :show, status: :ok, location: @checkout }
       # else
         # format.html { render :edit }
@@ -96,11 +96,12 @@ class CheckoutsController < ApplicationController
     def update_checkout_status(checkout_id)
       @checkout = Checkout.find(checkout_id)
 
-      if @checkout.status == 'REQUESTED'
+      case @checkout.status
+      when 'REQUESTED'
         @checkout.status = 'CHECKING'
-      elsif @checkout.status == 'CHECKING'
+      when 'CHECKING'
         @checkout.status = 'SHIPPED'
-      elsif @checkout == 'SHIPPED'
+      when 'SHIPPED'
         @checkout.status = 'DELIVERED'
       end
 
