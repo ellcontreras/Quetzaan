@@ -16,7 +16,6 @@
       <% @products.each do |product| %>
         <div class="card">
           <div class="card-content">
-            "Eh que pedo" <%= produt.product_pictures %>
             <% if product.product_pictures? %>
               <%= image_tag(product.product_pictures[0].url, class: "image image-home") %>
             <% else %>
