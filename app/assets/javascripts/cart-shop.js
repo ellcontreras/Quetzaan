@@ -16,7 +16,11 @@ try {
 
 function commitProducts() {
   localStorage.setItem("products", JSON.stringify(products));
-  document.getElementById("cart_container").innerHTML = "";
+  try {
+    document.getElementById("cart_container").innerHTML = "";
+  } catch (e) {
+    console.log(e)
+  }
   renderCartProducts();
 }
 
@@ -49,7 +53,11 @@ function deleteProductFromCart(id) {
 }
 
 function renderCartProducts() {
-  let cartContainer = document.getElementById("cart_container");
+  try {
+    let cartContainer = document.getElementById("cart_container");
+  } catch (e) {
+    console.log(e)
+  }
   let total = 0;
 
   if (products.length > 0) {
