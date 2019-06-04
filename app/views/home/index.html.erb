@@ -1,42 +1,4 @@
-<div class="section">
-  <div class="container">
-    <h1 class="title is-1 has-text-centered">Bienvenido a nuestro marketplace!</h1>
 
-    <div class="card search-card">
-      <div class="card-content">
-
-        <div id="search_input">
-        </div>
-
-        <ul id="hits" class="menu-list">
-        </ul>
-      </div>
-    </div>
-    <div class="container-pagination" id="show-products">
-      <% @products.each do |product| %>
-        <div class="card">
-          <div class="card-content">
-            <% unless product.product_pictures.empty? %>
-              <%= image_tag(product.product_pictures[0].url, class: "image image-home") %>
-            <% else %>
-              <img src="" alt="No hay imagen para mostrar"><br>
-            <% end %>
-            <%= link_to product.name, product %>
-            <p><b>Precio: </b> <%= product.price %></p>
-            <button class="button" onClick="addProductToCart({
-              id: <%= product.id %>,
-              name: '<%= product.name %>',
-              price: '<%= product.price %>'
-            })">Agregar al carrito</button>
-          </div>
-        </div>
-      <% end %>
-      <% if (@products.empty?) %>
-        No hay productos aún
-      <% end %>
-    </div>
-  </div>
-</div>
 
 <script>
   document.addEventListener("turbolinks:load", function() {
@@ -131,3 +93,44 @@
 });
 
 </script>
+
+
+<div class="section">
+  <div class="container">
+    <h1 class="title is-1 has-text-centered">Bienvenido a nuestro marketplace!</h1>
+
+    <div class="card search-card">
+      <div class="card-content">
+
+        <div id="search_input">
+        </div>
+
+        <ul id="hits" class="menu-list">
+        </ul>
+      </div>
+    </div>
+    <div class="container-pagination" id="show-products">
+      <% @products.each do |product| %>
+        <div class="card">
+          <div class="card-content">
+            <% unless product.product_pictures.empty? %>
+              <%= image_tag(product.product_pictures[0].url, class: "image image-home") %>
+            <% else %>
+              <img src="" alt="No hay imagen para mostrar"><br>
+            <% end %>
+            <%= link_to product.name, product %>
+            <p><b>Precio: </b> <%= product.price %></p>
+            <button class="button" onClick="addProductToCart({
+              id: <%= product.id %>,
+              name: '<%= product.name %>',
+              price: '<%= product.price %>'
+            })">Agregar al carrito</button>
+          </div>
+        </div>
+      <% end %>
+      <% if (@products.empty?) %>
+        No hay productos aún
+      <% end %>
+    </div>
+  </div>
+</div>
