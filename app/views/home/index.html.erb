@@ -23,7 +23,7 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
-            <button class="button" onClick="let product = {
+            <button class="button" onClick="function () {let product = {
               id: <%= product.id %>,
               name: '<%= product.name %>',
               price: '<%= product.price %>'
@@ -32,8 +32,6 @@
             var products = [];
 
             try {
-              console.log('A ver');
-
               if (
                 JSON.parse(localStorage.getItem('products')) != null ||
                 JSON.parse(localStorage.getItem('products')) != undefined
@@ -60,7 +58,7 @@
             } else {
               toastr.warning('Ese producto ya esta en el carrito', 'Info!');
             }            
-            ">Agregar al carrito</button>
+            }">Agregar al carrito</button>
           </div>
         </div>
       <% end %>
