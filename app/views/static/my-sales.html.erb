@@ -57,7 +57,26 @@
                                         </div>
                                     </td>
                                     <% if @checkout.status == 'CHECKING' %>
-                                        <td><%= link_to 'Actualizar status', checkout_path(@checkout), method: :put, class: "button is-info" %></td>
+                                        <td><button class="button is-infod" id="btn_up">Actualizar status</button></td>
+                                        <script>
+                                            document.getElementById("btn_up").addEventListener("click", () => {
+                                                $.ajax({
+                                                    url: '<%= checkout_path(@checkout.id) %>',
+                                                    type: 'PUT',
+                                                    data: {
+                                                        authenticity_token: $('[name="csrf-token"]')[0].content,
+                                                        checkout: {
+                                                            total_amount: '<%= @checkout.total_amount %>',
+                                                            user_id: <%= @checkout.user_id %>,
+                                                            status: '<%= @checkout.status %>%'
+                                                        },
+                                                    },
+                                                    success: function(response) {
+                                                        location.realod();
+                                                    }
+                                                });
+                                            })
+                                        </script>
                                     <% else %>
                                         <td><%= link_to 'Actualizar status', "#", class: "button is-info", disabled: true %></td>
                                     <% end %>
