@@ -23,42 +23,11 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
-            <button class="button" onClick="function addToCart() {let product = {
+            <button class="button" onClick="addProductToCart({
               id: <%= product.id %>,
               name: '<%= product.name %>',
               price: '<%= product.price %>'
-            };
-
-            var products = [];
-
-            try {
-              if (
-                JSON.parse(localStorage.getItem('products')) != null ||
-                JSON.parse(localStorage.getItem('products')) != undefined
-              ) {
-                console.log('A ver 1');
-                products = JSON.parse(localStorage.getItem('products'));
-              }
-            } catch (er) {
-              console.log(er);
-            }
-            
-            if (products.filter(p => p.id === product.id).length === 0) {
-              products.push(product);
-              toastr.success(
-                'Agregado al carrito!',
-                'El producto se ha agregado al carrito'
-              );
-              localStorage.setItem('products', JSON.stringify(products));
-                try {
-                  document.getElementById('cart_container').innerHTML = '';
-                } catch (e) {
-                  console.log(e);
-                };
-            } else {
-              toastr.warning('Ese producto ya esta en el carrito', 'Info!');
-            }            
-            }">Agregar al carrito</button>
+            })">Agregar al carrito</button>
           </div>
         </div>
       <% end %>
