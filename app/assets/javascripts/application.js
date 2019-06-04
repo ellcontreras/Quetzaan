@@ -19,7 +19,9 @@
 //= require quill.min
 //= require quill.global
 
-document.addEventListener("turbolinks: load", function() {
+document.addEventListener("turbolinks:load", function() {
+  console.log("asdcacd");
+
   var defaults = {
     theme: "snow",
     modules: {

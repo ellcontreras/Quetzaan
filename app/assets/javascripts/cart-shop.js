@@ -1,4 +1,4 @@
-document.addEventListener("turbolinks: load", function () {
+document.addEventListener("turbolinks:load", function() {
   var products = [];
 
   try {
@@ -64,7 +64,7 @@ document.addEventListener("turbolinks: load", function () {
           products.forEach(product => {
             cartContainer.innerHTML += `<div class="navbar-item"><button onClick="deleteProductFromCart(${
               product.id
-              })" class="button is-danger is-small">
+            })" class="button is-danger is-small">
     <span class="icon"><i class="fas fa-times"></i></span></button>
                       <span class="has-text-black">${product.name}</span>
                       <hr class="navbar-divider"></div>`;
@@ -87,6 +87,4 @@ document.addEventListener("turbolinks: load", function () {
   }
 
   renderCartProducts();
-
-})
-
+});
