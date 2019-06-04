@@ -88,3 +88,11 @@ document.addEventListener("turbolinks:load", function() {
 
   renderCartProducts();
 });
+
+document.getElementsByName("btn_add_to_cart").forEach(element => {
+  console.log(element);
+  element.addEventListener(
+    "click",
+    addProductToCart(element.attributes.product)
+  );
+});
