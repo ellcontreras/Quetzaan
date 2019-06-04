@@ -94,6 +94,8 @@ document.getElementsByName("btn_add_to_cart").forEach(element => {
   element.addEventListener("click", function(
     product = JSON.parse(element.attributes.product)
   ) {
+    console.log(product);
+
     var products = [];
 
     try {
