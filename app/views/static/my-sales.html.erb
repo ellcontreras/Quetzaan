@@ -20,7 +20,7 @@
         <tbody>
             <% unless @products.empty? %>
                 <% @products.each do |product| %>
-                    <% @checkout_product = CheckoutProduct.where(products_id: product.id).group(:checkout_id) %>
+                    <% @checkout_product = CheckoutProduct.where(products_id: product.id) %>
 
                         <% unless @checkout_product.empty? %>
                             <% @checkout_product.each do |checkout_product| %>
