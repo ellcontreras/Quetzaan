@@ -51,16 +51,15 @@
                 'Agregado al carrito!',
                 'El producto se ha agregado al carrito'
               );
-              return (localStorage.setItem('products', JSON.stringify(products));
-                  try {
-                    document.getElementById('cart_container').innerHTML = '';
-                  } catch (e) {
-                    console.log(e);
-                  });
-            }
-
-            toastr.warning('Ese producto ya esta en el carrito', 'Info!');
-            
+              localStorage.setItem('products', JSON.stringify(products));
+                try {
+                  document.getElementById('cart_container').innerHTML = '';
+                } catch (e) {
+                  console.log(e);
+                };
+            } else {
+              toastr.warning('Ese producto ya esta en el carrito', 'Info!');
+            }            
             ">Agregar al carrito</button>
           </div>
         </div>
