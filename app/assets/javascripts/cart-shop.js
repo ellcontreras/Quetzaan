@@ -91,8 +91,18 @@ document.addEventListener("turbolinks:load", function() {
 
 document.getElementsByName("btn_add_to_cart").forEach(element => {
   console.log(element);
-  element.addEventListener(
-    "click",
-    addProductToCart(element.attributes.product)
-  );
+  element.addEventListener("click", function(
+    product = JSON.parse(element.attributes.product)
+  ) {
+    if (products.filter(p => p.id === product.id).length === 0) {
+      products.push(product);
+      toastr.success(
+        "Agregado al carrito!",
+        "El producto se ha agregado al carrito"
+      );
+      return commitProducts();
+    }
+
+    toastr.warning("Ese producto ya esta en el carrito", "Info!");
+  });
 });
