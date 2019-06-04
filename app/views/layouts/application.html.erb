@@ -43,7 +43,7 @@
               </a>
               <div class="navbar-dropdown">
                 <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
-                <a href="<%= new_product_path % class="navbar-item">">Agregar producto</a>
+                <a href="<%= new_product_path %> class="navbar-item">Agregar producto</a>
               </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -116,10 +116,7 @@
     </footer>
 
     <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
-    <script type="text/javascript" data-turbolinks-eval=false>
-        console.log("I'm only run once on the initial page load");
-    </script>
-    <%= javascript_include_tag 'application', "data-turbolinks-suppress-warning": "", media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag media: 'all' %>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </body>
 </html>
