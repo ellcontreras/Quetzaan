@@ -24,12 +24,14 @@
         <div>
           <h3 class="subtitle is-3"> <%= raw(@product.description) %></h3>
         </div>
-        
-        <% if @product.user_id == current_user.id %>
-          <%= link_to 'Editar producto', edit_product_path(@product) %>
-          <%= link_to 'Eliminar producto', @product,
-                    method: :delete,
-                    data: {confirm: 'Estas seguro de eliminar este producto?'}%>
+
+        <% if(user_signed_in?) %>
+          <% if @product.user_id == current_user.id || current_user.email == 'admin@quetzaat.com'%>
+            <%= link_to 'Editar producto', edit_product_path(@product) %>
+            <%= link_to 'Eliminar producto', @product,
+                      method: :delete,
+                      data: {confirm: 'Estas seguro de eliminar este producto?'}%>
+          <% end %>
         <% end %>
 
       </div>

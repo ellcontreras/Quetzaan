@@ -6,6 +6,9 @@
     <%= csp_meta_tag %>
 
     <link rel="shortcut icon" href="/assets/logo.jpeg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.32.1/dist/algoliasearchLite.js" integrity="sha256-pMaJf0I78weeXGkRMBDO6jSulxC/q3sb0aPdtV2N8n0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@3.2.0" integrity="sha256-/8usMtTwZ01jujD7KAZctG0UMk2S2NDNirGFVBbBZCM=" crossorigin="anonymous"></script>
@@ -43,7 +46,7 @@
               </a>
               <div class="navbar-dropdown">
                 <%= link_to "Mis productos", "/my-products", class: "navbar-item" %>
-                <%= link_to "Agregar producto", new_product_path, class: "navbar-item" %>
+                <a href="<%= new_product_path %>" class="navbar-item">Agregar producto</a>
               </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -116,10 +119,7 @@
     </footer>
 
     <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
-    <script type="text/javascript" data-turbolinks-eval=false>
-        console.log("I'm only run once on the initial page load");
-    </script>
-    <%= javascript_include_tag 'application', "data-turbolinks-suppress-warning": "", media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', media: 'all' %>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </body>
 </html>
