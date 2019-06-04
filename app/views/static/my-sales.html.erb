@@ -19,49 +19,52 @@
         </thead>
         <tbody>
             <% unless @products.empty? %>
-            <% @products.each do |product| %>
+                <% @products.each do |product| %>
                     <% @checkout_product = CheckoutProduct.where(products_id: product.id).group(:checkout_id) %>
-                    
-                    <% @checkout_product.each do |checkout_product| %>
-                        <% @checkout = Checkout.find(checkout_product.checkout_id) %>
-                        <tr>
-                            <td><%= @checkout.id %></td>
-                            <td><%= @checkout.total_amount %></td>
-                            <td><%= @checkout.status %></td>
-                            <td><%= @checkout.created_at %></td>
-                            <td>
-                                <div class="dropdown is-hoverable">
-                                    <div class="dropdown-trigger">
-                                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                        <span>Ver información</span>
-                                        <span class="icon is-small">
-                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                        </span>
-                                        </button>
-                                    </div>
-                                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                                        <div class="dropdown-content" style="padding: 15px;">
-                                            <div>
-                                                <% @userdata = UserdataCheckout.where(checkout_id: @checkout.id).first %>
-                                                <p><b>Nombre: </b><%= @userdata.name %></p>
-                                                <p><b>Dirección: </b>
-                                                    <%= @userdata.street %> #<%= @userdata.external_number %>
-                                                    <% if @userdata.internal_number? %> interior: <%= @checkout.internal_number %> <%end%>
-                                                    </p>
-                                                <p><%= @userdata.city %> <%= @userdata.state %>, <%= @userdata.country %></p>
-                                                <p><b>Codigo postal: </b><%= @userdata.zip_code %></p>
+
+                        <% unless @checkout_product.empty? %>
+                            <% @checkout_product.each do |checkout_product| %>
+                                <% @checkout = Checkout.find(checkout_product.checkout_id) %>
+                                <tr>
+                                    <td><%= @checkout.id %></td>
+                                    <td><%= @checkout.total_amount %></td>
+                                    <td><%= @checkout.status %></td>
+                                    <td><%= @checkout.created_at %></td>
+                                    <td>
+                                        <div class="dropdown is-hoverable">
+                                            <div class="dropdown-trigger">
+                                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                                <span>Ver información</span>
+                                                <span class="icon is-small">
+                                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                                </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                                <div class="dropdown-content" style="padding: 15px;">
+                                                    <div>
+                                                        <% @userdata = UserdataCheckout.where(checkout_id: @checkout.id).first %>
+                                                        <p><b>Nombre: </b><%= @userdata.name %></p>
+                                                        <p><b>Dirección: </b>
+                                                            <%= @userdata.street %> #<%= @userdata.external_number %>
+                                                            <% if @userdata.internal_number? %> interior: <%= @checkout.internal_number %> <%end%>
+                                                            </p>
+                                                        <p><%= @userdata.city %> <%= @userdata.state %>, <%= @userdata.country %></p>
+                                                        <p><b>Codigo postal: </b><%= @userdata.zip_code %></p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <% if @checkout.status == 'CHECKING' %>
-                                <td><%= link_to 'Actualizar status', checkout_path(@checkout), method: :put, class: "button is-info" %></td>
-                            <% else %>
-                                <td><%= link_to 'Actualizar status', "#", class: "button is-info", disabled: true %></td>
+                                    </td>
+                                    <% if @checkout.status == 'CHECKING' %>
+                                        <td><%= link_to 'Actualizar status', checkout_path(@checkout), method: :put, class: "button is-info" %></td>
+                                    <% else %>
+                                        <td><%= link_to 'Actualizar status', "#", class: "button is-info", disabled: true %></td>
+                                    <% end %>
+                                </tr>
                             <% end %>
-                        </tr>
-                    <% end %>
+                        <% end %>   
+                    
                 <% end %>
             <% end %>
         </tbody>    
