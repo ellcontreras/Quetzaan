@@ -63,8 +63,8 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       # if @checkout.update(checkout_params)
-        # format.html { redirect_to "/my-sales", notice: 'Checkout was successfully updated.' }
-        format.json { render :show, status: :ok, location: @checkout }
+        format.html { redirect_to "/my-sales" }
+        # format.json { render :show, status: :ok, location: "/static/" }
       # else
         # format.html { render :edit }
         # format.json { render json: @checkout.errors, status: :unprocessable_entity }
