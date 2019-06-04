@@ -10,11 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+//= require rails
 //= require activestorage
 //= require turbolinks
 //= require_tree .
 //= require algolia/v3/algoliasearch.min
+//= require jquery
 //= require quill.min
 //= require quill.global
 
