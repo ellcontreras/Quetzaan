@@ -23,7 +23,7 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
-            <button class="button" onClick="function () {let product = {
+            <button class="button" onClick="function addToCart() {let product = {
               id: <%= product.id %>,
               name: '<%= product.name %>',
               price: '<%= product.price %>'
