@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require_tree .
 //= require algolia/v3/algoliasearch.min
-//= require jquery
 //= require quill.min
 //= require quill.global
 
