@@ -28,18 +28,7 @@
     renderCartProducts();
   }
 
-  function addProductToCart(product) {
-    if (products.filter(p => p.id === product.id).length === 0) {
-      products.push(product);
-      toastr.success(
-        "Agregado al carrito!",
-        "El producto se ha agregado al carrito"
-      );
-      return commitProducts();
-    }
-
-    toastr.warning("Ese producto ya esta en el carrito", "Info!");
-  }
+  
 
   function deleteProductFromCart(id) {
     for (let i = 0; i < products.length; i++) {
@@ -120,11 +109,24 @@
             <% end %>
             <%= link_to product.name, product %>
             <p><b>Precio: </b> <%= product.price %></p>
-            <button class="button" onClick="addProductToCart({
+            <button class="button" onClick="let product = {
               id: <%= product.id %>,
               name: '<%= product.name %>',
               price: '<%= product.price %>'
-            })">Agregar al carrito</button>
+            }
+            
+            if (products.filter(p => p.id === product.id).length === 0) {
+              products.push(product);
+              toastr.success(
+                'Agregado al carrito!',
+                'El producto se ha agregado al carrito'
+              );
+              return commitProducts();
+            }
+
+            toastr.warning('Ese producto ya esta en el carrito', 'Info!');
+            
+            ">Agregar al carrito</button>
           </div>
         </div>
       <% end %>
