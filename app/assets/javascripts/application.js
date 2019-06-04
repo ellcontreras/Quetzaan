@@ -19,8 +19,7 @@
 //= require quill.min
 //= require quill.global
 
-$(document).on('turbolinks: load', function () {
-
+document.addEventListener("turbolinks: load", function() {
   var defaults = {
     theme: "snow",
     modules: {
@@ -101,5 +100,4 @@ $(document).on('turbolinks: load', function () {
   );
 
   search.start();
-
-})
+});
