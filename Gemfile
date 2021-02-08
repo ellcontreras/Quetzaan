@@ -65,7 +65,7 @@ gem 'devise'
 
 gem 'algoliasearch-rails'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 
 gem 'quilljs-rails'
 
